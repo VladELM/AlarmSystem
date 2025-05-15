@@ -391,6 +391,33 @@ MonoBehaviour:
   _moveBlendParameter: MoveBlend
   _backMoveBlendValue: 0
   _runBlendValue: 1
+--- !u!114 &1295440645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295440638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367ac7be228acea4290f87577f56c882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1295440646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295440638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650e8f4c09311444b9961aeefdf9e9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputReader: {fileID: 1295440645}
+  _mover: {fileID: 1295440641}
+  _animationManager: {fileID: 1295440643}
 --- !u!1001 &1367635090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -462,6 +489,12 @@ PrefabInstance:
       addedObject: {fileID: 1295440642}
     - targetCorrespondingSourceObject: {fileID: 7726325505321076126, guid: 54d96ebabc3051b478368267348bcec4, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1295440646}
+    - targetCorrespondingSourceObject: {fileID: 7726325505321076126, guid: 54d96ebabc3051b478368267348bcec4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1295440645}
+    - targetCorrespondingSourceObject: {fileID: 7726325505321076126, guid: 54d96ebabc3051b478368267348bcec4, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1295440641}
     - targetCorrespondingSourceObject: {fileID: 7726325505321076126, guid: 54d96ebabc3051b478368267348bcec4, type: 3}
       insertIndex: -1
@@ -479,7 +512,7 @@ GameObject:
   - component: {fileID: 1581007016}
   - component: {fileID: 1581007015}
   m_Layer: 0
-  m_Name: AlarmListener
+  m_Name: Thief
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -601,6 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8b8ee9bed4f7742ac5a3b5817c821a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minVlolumeValue: 0
+  _maxVlolumeValue: 1
 --- !u!114 &1607741950
 MonoBehaviour:
   m_ObjectHideFlags: 0

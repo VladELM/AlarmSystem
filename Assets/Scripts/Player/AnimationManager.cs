@@ -16,25 +16,19 @@ public class AnimationManager : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void ToggleMode(bool isMovingForward, bool isMovingBack)
     {
-        ToggleMoveMode();
-        ToggleMoveAnimation();
-    }
-
-    private void ToggleMoveMode()
-    {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        if (isMovingForward || isMovingBack)
             _animator.SetBool(_moveBoolParameter, true);
-        else if (Input.GetKey(KeyCode.W) == false && Input.GetKey(KeyCode.S) == false)
+        else if (isMovingForward == false && isMovingBack == false)
             _animator.SetBool(_moveBoolParameter, false);
     }
 
-    private void ToggleMoveAnimation()
+    public void ToggleMoveAnimation(bool isMovingForward, bool isMovingBack)
     {
-        if (Input.GetKey(KeyCode.W))
+        if (isMovingForward)
             _animator.SetFloat(_moveBlendParameter, _runBlendValue);
-        else if (Input.GetKey(KeyCode.S))
+        else if (isMovingBack)
             _animator.SetFloat(_moveBlendParameter, _backMoveBlendValue);
     }
 }

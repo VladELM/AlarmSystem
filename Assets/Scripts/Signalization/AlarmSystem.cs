@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -9,8 +10,6 @@ public class AlarmSystem : MonoBehaviour
     [SerializeField] private float _delta = 0.01f;
 
     private AudioSource _audioSource;
-    private bool _isIncreasing;
-    private bool _isRedicing;
 
     private void Awake()
     {
@@ -20,49 +19,39 @@ public class AlarmSystem : MonoBehaviour
     private void Start()
     {
         _audioSource.volume = _minVlolumeValue;
-        _isIncreasing = false;
-        _isRedicing = true;
     }
 
-    private void Update()
+    public void ManageAlarming(bool isAlarming)
     {
-        if (_isIncreasing)
-            IncreaseVolume();
+        float targetVolumeValue = 0;
 
-        if (_isRedicing)
-            ReduceVolume();
-    }
-
-    public void RunAlarmSound()
-    {
-        _audioSource.Play();
-        _isIncreasing = true;
-    }
-
-    public void TurnOnMuteMode()
-    {
-        _isRedicing = true;
-        _isIncreasing = false;
-    }
-
-    private void IncreaseVolume()
-    {
-        float currentVolume = Mathf.MoveTowards(_audioSource.volume, _maxVlolumeValue, _delta * Time.deltaTime);
-        _audioSource.volume = currentVolume;
-
-        if (currentVolume == _maxVlolumeValue)
-            _isIncreasing = false;
-    }
-
-    private void ReduceVolume()
-    {
-        float currentVolume = Mathf.MoveTowards(_audioSource.volume, _minVlolumeValue, _delta * Time.deltaTime);
-        _audioSource.volume = currentVolume;
-
-        if (currentVolume == _minVlolumeValue)
+        if (isAlarming)
         {
-            _isRedicing = false;
+            targetVolumeValue = _maxVlolumeValue;
+            _audioSource.Play();
+        }
+        else
+        {
+            targetVolumeValue = _minVlolumeValue;
+        }
+
+        StartCoroutine(SoundManaging(targetVolumeValue));
+
+        if (isAlarming == false && _audioSource.volume == _minVlolumeValue)
             _audioSource?.Stop();
+    }
+
+    private IEnumerator SoundManaging(float targetVolumeValue)
+    {
+        while (enabled)
+        {
+            yield return null;
+
+            float currentVolume = Mathf.MoveTowards(_audioSource.volume, targetVolumeValue, _delta * Time.deltaTime);
+            _audioSource.volume = currentVolume;
+
+            if (_audioSource.volume == targetVolumeValue)
+                break;
         }
     }
 }

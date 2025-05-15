@@ -13,13 +13,13 @@ public class AlarmSystemZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out AlarmListener alarmListener))
-            _alarmSystem.RunAlarmSound();
+        if (other.TryGetComponent(out Thief thief))
+            _alarmSystem.ManageAlarming(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent(out AlarmListener alarmListener))
-            _alarmSystem.TurnOnMuteMode();
+        if (other.TryGetComponent(out Thief thief))
+            _alarmSystem.ManageAlarming(false);
     }
 }
