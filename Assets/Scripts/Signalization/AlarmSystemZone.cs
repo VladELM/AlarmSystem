@@ -1,25 +1,19 @@
+using System;
 using UnityEngine;
-
-[RequireComponent(typeof(AlarmSystem))]
 
 public class AlarmSystemZone : MonoBehaviour
 {
-    private AlarmSystem _alarmSystem;
-
-    private void Awake()
-    {
-        _alarmSystem = GetComponent<AlarmSystem>();
-    }
+    public event Action<bool> Collided;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Thief thief))
-            _alarmSystem.ManageAlarming(true);
+            Collided?.Invoke(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out Thief thief))
-            _alarmSystem.ManageAlarming(false);
+            Collided?.Invoke(false);
     }
 }

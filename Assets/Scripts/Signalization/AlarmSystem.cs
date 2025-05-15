@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AlarmSystemZone))]
 [RequireComponent(typeof(AudioSource))]
 
 public class AlarmSystem : MonoBehaviour
@@ -9,11 +10,18 @@ public class AlarmSystem : MonoBehaviour
     [SerializeField] private float _maxVlolumeValue = 1;
     [SerializeField] private float _delta = 0.01f;
 
+    private AlarmSystemZone _alarmZone;
     private AudioSource _audioSource;
 
     private void Awake()
     {
+        _alarmZone = GetComponent<AlarmSystemZone>();
         _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        _alarmZone.Collided += ManageAlarming;
     }
 
     private void Start()
@@ -21,7 +29,12 @@ public class AlarmSystem : MonoBehaviour
         _audioSource.volume = _minVlolumeValue;
     }
 
-    public void ManageAlarming(bool isAlarming)
+    private void OnDisable()
+    {
+        _alarmZone.Collided -= ManageAlarming;
+    }
+
+    private void ManageAlarming(bool isAlarming)
     {
         float targetVolumeValue = 0;
 

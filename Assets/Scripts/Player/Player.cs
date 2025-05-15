@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private Mover _mover;
-    [SerializeField] private AnimationManager _animationManager;
+    [SerializeField] private AnimationOperator _animationManager;
 
     private void FixedUpdate()
     {

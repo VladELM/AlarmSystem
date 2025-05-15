@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 
-public class AnimationManager : MonoBehaviour
+public class AnimationOperator : MonoBehaviour
 {
     [SerializeField] private string _moveBoolParameter;
     [SerializeField] private string _moveBlendParameter;
