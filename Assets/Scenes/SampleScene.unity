@@ -417,7 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 1295440645}
   _mover: {fileID: 1295440641}
-  _animationManager: {fileID: 1295440643}
+  _animationOperator: {fileID: 1295440643}
 --- !u!1001 &1367635090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634,8 +634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8b8ee9bed4f7742ac5a3b5817c821a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minVlolumeValue: 0
-  _maxVlolumeValue: 1
 --- !u!114 &1607741950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,7 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minVlolumeValue: 0
   _maxVlolumeValue: 1
-  _delta: 0.5
+  _delta: 0.25
 --- !u!82 &1607741951
 AudioSource:
   m_ObjectHideFlags: 0

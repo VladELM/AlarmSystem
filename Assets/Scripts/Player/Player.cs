@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private Mover _mover;
-    [SerializeField] private AnimationOperator _animationManager;
+    [SerializeField] private AnimationOperator _animationOperator;
 
     private void FixedUpdate()
     {
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
         if (_inputReader.MoveDirection != 0)
             _mover.Move(_inputReader.MoveDirection);
 
-        _animationManager.ToggleMode(_inputReader.IsMovingForward, _inputReader.IsMovingBack);
-        _animationManager.ToggleMoveAnimation(_inputReader.IsMovingForward, _inputReader.IsMovingBack);
+        _animationOperator.ToggleMode(_inputReader.IsMovingForward, _inputReader.IsMovingBack);
+        _animationOperator.ToggleMoveAnimation(_inputReader.IsMovingForward, _inputReader.IsMovingBack);
     }
 }

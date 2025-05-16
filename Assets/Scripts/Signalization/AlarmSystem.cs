@@ -8,10 +8,12 @@ public class AlarmSystem : MonoBehaviour
 {
     [SerializeField] private float _minVlolumeValue = 0;
     [SerializeField] private float _maxVlolumeValue = 1;
-    [SerializeField] private float _delta = 0.01f;
+    [SerializeField] private float _delta = 0.25f;
 
     private AlarmSystemZone _alarmZone;
     private AudioSource _audioSource;
+    private Coroutine _playCoroutine;
+    private Coroutine _stopCoroutine;
     private bool _isPlaying;
     private bool _isStopping;
 
@@ -44,22 +46,22 @@ public class AlarmSystem : MonoBehaviour
     {
         if (_isStopping)
         {
-            StopCoroutine(Stopping());
+            StopCoroutine(_stopCoroutine);
             _isStopping = false;
         }
 
-        StartCoroutine(Playing());
+        _playCoroutine = StartCoroutine(Playing());
     }
 
     private void StopSound()
     {
         if (_isPlaying)
         {
-            StopCoroutine(Playing());
+            StopCoroutine(_playCoroutine);
             _isPlaying = false;
         }
 
-        StartCoroutine(Stopping());
+        _stopCoroutine = StartCoroutine(Stopping());
     }
 
     private IEnumerator Playing()
