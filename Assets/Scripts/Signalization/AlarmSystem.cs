@@ -12,6 +12,8 @@ public class AlarmSystem : MonoBehaviour
 
     private AlarmSystemZone _alarmZone;
     private AudioSource _audioSource;
+    private bool _isPlaying;
+    private bool _isStopping;
 
     private void Awake()
     {
@@ -21,50 +23,77 @@ public class AlarmSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        _alarmZone.Collided += ManageAlarming;
+        _alarmZone.Entered += PlaySound;
+        _alarmZone.Exited += StopSound;
     }
 
     private void Start()
     {
         _audioSource.volume = _minVlolumeValue;
+        _isPlaying = false;
+        _isStopping = false;
     }
 
     private void OnDisable()
     {
-        _alarmZone.Collided -= ManageAlarming;
+        _alarmZone.Entered -= PlaySound;
+        _alarmZone.Exited -= StopSound;
     }
 
-    private void ManageAlarming(bool isAlarming)
+    private void PlaySound()
     {
-        float targetVolumeValue = 0;
-
-        if (isAlarming)
+        if (_isStopping)
         {
-            targetVolumeValue = _maxVlolumeValue;
-            _audioSource.Play();
-        }
-        else
-        {
-            targetVolumeValue = _minVlolumeValue;
+            StopCoroutine(Stopping());
+            _isStopping = false;
         }
 
-        StartCoroutine(SoundManaging(targetVolumeValue));
-
-        if (isAlarming == false && _audioSource.volume == _minVlolumeValue)
-            _audioSource?.Stop();
+        StartCoroutine(Playing());
     }
 
-    private IEnumerator SoundManaging(float targetVolumeValue)
+    private void StopSound()
     {
-        while (enabled)
+        if (_isPlaying)
+        {
+            StopCoroutine(Playing());
+            _isPlaying = false;
+        }
+
+        StartCoroutine(Stopping());
+    }
+
+    private IEnumerator Playing()
+    {
+        _audioSource.Play();
+        _isPlaying = true;
+
+        while (_isPlaying)
         {
             yield return null;
 
-            float currentVolume = Mathf.MoveTowards(_audioSource.volume, targetVolumeValue, _delta * Time.deltaTime);
+            float currentVolume = Mathf.MoveTowards(_audioSource.volume, _maxVlolumeValue, _delta * Time.deltaTime);
             _audioSource.volume = currentVolume;
 
-            if (_audioSource.volume == targetVolumeValue)
-                break;
+            if (_audioSource.volume == _maxVlolumeValue)
+                _isPlaying = false;
         }
+    }
+
+    private IEnumerator Stopping()
+    {
+        _isStopping  = true;
+
+        while (_isStopping)
+        {
+            yield return null;
+
+            float currentVolume = Mathf.MoveTowards(_audioSource.volume, _minVlolumeValue, _delta * Time.deltaTime);
+            _audioSource.volume = currentVolume;
+
+            if (_audioSource.volume == _minVlolumeValue)
+                _isStopping = false;
+        }
+
+        _audioSource?.Stop();
     }
 }
