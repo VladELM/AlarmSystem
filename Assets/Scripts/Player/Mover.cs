@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    private const string Horizontal = nameof(Horizontal);
-    private const string Vertical = nameof(Vertical);
-
     [SerializeField] private float _rotateSpeed = 150;
     [SerializeField] private float _runSpeed = 2.5f;
     [SerializeField] private float _backRunSpeed = 1.5f;
